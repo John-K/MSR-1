@@ -3,13 +3,15 @@ substitutions:
   device_description: ${name} made by Apollo Automation - version ${version}.
 
 esp32:
-  board: esp32-c3-devkitm-1
+  variant: esp32c3
+  flash_size: 4MB
   framework:
     type: esp-idf
 captive_portal:
 
 web_server:
   port: 80
+  version: 3
 
 api:
   on_client_connected:
