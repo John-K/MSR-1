@@ -16,16 +16,16 @@ api:
     - delay: 1s
     - light.turn_off: rgb_light
     - lambda: 'id(cycleCounter) = 30;'
-  services:
-    - service: play_buzzer
+  actions:
+    - action: play_buzzer
       variables:
         song_str: string
       then:
         - rtttl.play:
             rtttl: !lambda 'return song_str;'
 
-    #Co2 Calibration Service
-    - service: calibrate_co2_value
+    #Co2 Calibration Action
+    - action: calibrate_co2_value
       variables:
         co2_ppm: float
       then:
@@ -34,7 +34,7 @@ api:
             id: scd40
 
     #Setting HLK Password
-    - service: set_ld2410_bluetooth_password
+    - action: set_ld2410_bluetooth_password
       variables:
         password: string
       then:
