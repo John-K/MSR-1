@@ -3,9 +3,6 @@ esphome:
   friendly_name: Apollo Multisensor Mk1 (MSR-1)
   comment: Apollo Multisensor Mk1 (MSR-1)
   name_add_mac_suffix: true
-  platformio_options:
-    board_build.flash_mode: dio
-
   on_boot:
   - priority: 900.0
     then:
@@ -28,11 +25,6 @@ esp32_improv:
   authorizer: none
 
 wifi:
-  on_connect:
-    - delay: 5s  
-    - ble.disable:
-  on_disconnect:
-    - ble.enable:
   ap:
     ssid: "Apollo MSR1 Hotspot"
 

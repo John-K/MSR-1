@@ -3,29 +3,31 @@ substitutions:
   device_description: ${name} made by Apollo Automation - version ${version}.
 
 esp32:
-  board: esp32-c3-devkitm-1
+  variant: esp32c3
+  flash_size: 4MB
   framework:
     type: esp-idf
 captive_portal:
 
 web_server:
   port: 80
+  version: 3
 
 api:
   on_client_connected:
     - delay: 1s
     - light.turn_off: rgb_light
     - lambda: 'id(cycleCounter) = 30;'
-  services:
-    - service: play_buzzer
+  actions:
+    - action: play_buzzer
       variables:
         song_str: string
       then:
         - rtttl.play:
             rtttl: !lambda 'return song_str;'
 
-    #Co2 Calibration Service
-    - service: calibrate_co2_value
+    #Co2 Calibration Action
+    - action: calibrate_co2_value
       variables:
         co2_ppm: float
       then:
@@ -34,7 +36,7 @@ api:
             id: scd40
 
     #Setting HLK Password
-    - service: set_ld2410_bluetooth_password
+    - action: set_ld2410_bluetooth_password
       variables:
         password: string
       then:
@@ -649,6 +651,20 @@ text_sensor:
   - platform: ld2410
     version:
       name: "Radar Firmware Version"
+  - platform: wifi_info
+    ip_address:
+      name: "IP Address"
+      id: wifi_ip
+  - platform: version
+    name: "ESPHome Version"
+    hide_timestamp: true
+    entity_category: "diagnostic"
+  - platform: template
+    name: "Apollo Firmware Version"
+    id: apollo_firmware_version
+    lambda: |-
+      return {"${version}"};
+    entity_category: "diagnostic"
 
 select:
   - platform: ld2410
