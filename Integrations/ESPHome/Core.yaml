@@ -300,8 +300,18 @@ binary_sensor:
       } else {
         return false;
       }
+  - platform: template
+    name: "Radar Zone Occupancy"
+    id: "radar_zone_occupancy"
+    device_class: occupancy
+    icon: mdi:motion-sensor
+    lambda: |-
+      bool zone1 = id(radar_zone_1_occupancy).state;
+      bool zone2 = id(radar_zone_2_occupancy).state;
+      bool zone3 = id(radar_zone_3_occupancy).state;
+      return zone1 || zone2 || zone3;
   - platform: gpio
-    pin: 
+    pin:
       number: GPIO9
       inverted: true
       ignore_strapping_warning: true
