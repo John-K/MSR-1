@@ -20,11 +20,12 @@ esphome:
 
   min_version: 2025.2.0
 
+logger:
+
 dashboard_import:
   package_import_url: github://ApolloAutomation/MSR-1/Integrations/ESPHome/MSR-1_BLE.yaml
   import_full_config: false
 
-logger:
 
 ota:
   - platform: esphome
