@@ -3,14 +3,16 @@ esphome:
   friendly_name: Apollo Multisensor Mk1 (MSR-1)
   comment: Apollo Multisensor Mk1 (MSR-1)
   name_add_mac_suffix: true
-  platformio_options:
-    board_build.flash_mode: dio
-
   on_boot:
   - priority: 900.0
     then:
       - lambda: |-
           id(radar_bluetooth).turn_off();
+  - priority: 500
+    then:
+      - text_sensor.template.publish:
+          id: apollo_firmware_version
+          state: "${version}"
 
   project:
     name: "ApolloAutomation.MSR-1"
@@ -21,6 +23,8 @@ esphome:
 dashboard_import:
   package_import_url: github://ApolloAutomation/MSR-1/Integrations/ESPHome/MSR-1.yaml
   import_full_config: false
+
+logger:
 
 ota:
   - platform: esphome
@@ -35,6 +39,7 @@ captive_portal:
 
 web_server:
   port: 80
+  version: 3
 
 packages:
   core: !include Core.yaml
