@@ -1,5 +1,5 @@
 substitutions:
-  location: family_room
+  location: family-room
 
 esphome:
   name: apollo-msr-1-$location
@@ -36,9 +36,9 @@ ota:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  power_save_mode: none
-  ap:
-    ssid: "Apollo MSR1 Hotspot"
+#  power_save_mode: none
+#  ap:
+#    ssid: "Apollo MSR1 Hotspot"
 
 web_server:
   port: 80
